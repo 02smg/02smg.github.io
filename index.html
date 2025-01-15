@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WELCOME TO LITTLE BROTHER!</title>
+  <style>
+    body {
+      background-color: hotpink; /* 눈부신 핑크 배경 */
+      font-family: "Comic Sans MS", "Courier New", sans-serif;
+      color: yellow;
+      margin: 0;
+      padding: 0;
+      animation: bg-flicker 0.5s infinite alternate;
+    }
+
+    @keyframes bg-flicker {
+      0% { background-color: hotpink; }
+      50% { background-color: cyan; }
+      100% { background-color: lime; }
+    }
+
+    h1, h2 {
+      text-shadow: 2px 2px 5px black, -2px -2px 5px red;
+      animation: text-shake 0.5s infinite alternate;
+    }
+
+    @keyframes text-shake {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(10px); }
+      100% { transform: translateX(-10px); }
+    }
+
+    .marquee-container {
+      margin: 20px 0;
+      border: 5px dashed black;
+      background: repeating-linear-gradient(45deg, yellow, red 10px, cyan 20px);
+      animation: spin-bg 4s linear infinite;
+    }
+
+    @keyframes spin-bg {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    marquee {
+      font-size: 1.5rem;
+      color: black;
+      font-weight: bold;
+    }
+
+    blink {
+      font-size: 1.2rem;
+      color: blue;
+      animation: blink-text 1s infinite alternate;
+    }
+
+    @keyframes blink-text {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .project-list {
+      margin: 20px auto;
+      text-align: left;
+      display: inline-block;
+      border: 10px groove red;
+      background: linear-gradient(to bottom, yellow, pink, lime);
+      padding: 20px;
+      color: black;
+      font-weight: bold;
+      animation: rotate-card 3s linear infinite;
+    }
+
+    @keyframes rotate-card {
+      0% { transform: rotate(0deg); }
+      50% { transform: rotate(5deg); }
+      100% { transform: rotate(-5deg); }
+    }
+
+    .footer {
+      background: conic-gradient(from 0deg, red, yellow, lime, cyan, magenta, red);
+      color: black;
+      text-align: center;
+      padding: 20px;
+      border-top: 10px solid black;
+      font-size: 1.5rem;
+      animation: footer-spin 6s linear infinite;
+    }
+
+    @keyframes footer-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+      animation: color-flash 0.5s infinite alternate;
+    }
+
+    @keyframes color-flash {
+      0% { color: yellow; }
+      50% { color: magenta; }
+      100% { color: cyan; }
+    }
+
+    a:hover {
+      font-size: 2rem;
+    }
+
+    .scrolling-table {
+      overflow: hidden;
+      padding: 20px;
+      animation: flash-bg 2s infinite;
+    }
+
+    .scrolling-table table {
+      width: 90%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      animation: shake-table 1.5s infinite alternate;
+    }
+
+    @keyframes flash-bg {
+      0% { background-color: lime; }
+      50% { background-color: yellow; }
+      100% { background-color: hotpink; }
+    }
+
+    @keyframes shake-table {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(1deg); }
+      50% { transform: rotate(-1deg); }
+      75% { transform: rotate(1deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .scrolling-table th, .scrolling-table td {
+      border: 3px solid black;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .scrolling-table th {
+      background: linear-gradient(to right, red, yellow);
+      font-size: 1.5rem;
+    }
+
+    .scrolling-table td {
+      background: pink;
+      color: blue;
+      font-size: 1.2rem;
+      animation: row-glow 1.5s infinite alternate;
+    }
+
+    @keyframes row-glow {
+      0% { background-color: pink; color: blue; }
+      50% { background-color: yellow; color: red; }
+      100% { background-color: cyan; color: green; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 헤더 -->
+  <div style="text-align: center; padding: 30px; background: rainbow;">
+    <h1>🌈 WELCOME TO LITTLE BROTHER 🌈</h1>
+    <h2>"WE ARE THE FUTURE OF TECHNOLOGY!"</h2>
+    <blink><strong>🔥🔥 You just entered the BEST website on Earth! 🔥🔥</strong></blink>
+  </div>
+
+  <!-- 움직이는 텍스트 -->
+  <div class="marquee-container">
+    <marquee scrollamount="20" behavior="scroll" direction="left">
+      🥳 Little Brother is AMAZING! | HIRE US NOW! | WE BUILD THE FUTURE! 🎉
+    </marquee>
+  </div>
+
+  <!-- 회사 소개 -->
+  <div class="content">
+    <h2>ABOUT US</h2>
+    <p>🌟 Little Brother는 TheAlpha의 자회사로, 기술 혁신의 선두주자입니다. 🌟</p>
+    <p>🌟 세상에 긍정적인 영향을 주는 프로그램을 개발하고자 하는 일념으로 창립되었습니다! 🌟</p>
+    <blink>🌍 앱 개발, 웹 개발, 빅데이터, 서버 관리 등 기술의 모든 것을 제공합니다! 🌍</blink>
+  </div>
+
+  <!-- 프로젝트 -->
+  <div class="content">
+    <h2>PROJECTS</h2>
+    <div class="project-list">
+      <ul>
+        <li>🔥 <strong>헬스장 관리 프로그램</strong>: 회원을 더 많이, 더 빨리! (외주작업)</li>
+        <li>📸 <strong>카메라 앱</strong>: 화질 끝판왕!</li>
+        <li>📚 <strong>공부 앱</strong>: 학습 효율을 100배로! (이미 하루에 2천명 넘게 쓰고있다고!)</li>
+        <li>🛒 <strong>전자상거래 플랫폼</strong>: 가장 빠르고 간편한 쇼핑!</li>
+        <li>🔥 <strong>60만명이 이용한 공부 블로그</strong>: 나는야 파워블로거</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 채용 정보 -->
+  <div class="content">
+    <h2>JOIN OUR TEAM!</h2>
+    <p>
+      저희는 함께 일할 <span style="color: red; font-weight: bold;">개발자</span>, <span style="color: blue; font-weight: bold;">디자이너</span>, 
+      <span style="color: green; font-weight: bold;">열정맨, 개발천재, 뛰어난 두뇌</span>를 찾고 있습니다!
+    </p>
+    <p>💌 <strong>문의:</strong> <a href="mailto:recthealpha@gmail.com">recthealpha@gmail.com</a></p>
+    <p>📅 <strong>지원 마감:</strong> 2123년 9월 3일 (도라에몽 나오는 날까지!)</p>
+  </div>
+
+  <!-- 스크롤 테이블 -->
+  <div class="scrolling-table">
+    <table>
+      <thead>
+        <tr>
+          <th>서비스</th>
+          <th>설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>앱 개발</td>
+          <td>사용자 맞춤형 모바일 애플리케이션 제작</td>
+        </tr>
+        <tr>
+          <td>웹 개발</td>
+          <td>최신 기술로 제작한 반응형 웹사이트</td>
+        </tr>
+        <tr>
+          <td>AI</td>
+          <td>머신러닝과 데이터 분석 솔루션</td>
+        </tr>
+        <tr>
+         <td>당신이 원하는 그 어떤 프로그램 </td>
+         <td>무조건 가능 ~~</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 푸터 -->
+  <div class="footer">
+    <marquee behavior="alternate" scrollamount="10">🌟 POWERED BY SONG MINGEUN 🌟</marquee>
+    <p>© 2025 LITTLE BROTHER | A SUBSIDIARY OF THEALPHA</p>
+  </div>
+</body>
+</html>
