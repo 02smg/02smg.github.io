@@ -2,247 +2,1082 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WELCOME TO LITTLE BROTHER!</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Little Brother - We Build the Future</title>
+
+  <!-- 구글 폰트 -->
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+  </style>
+
+  <style>
+    /* 기본 리셋 및 폰트 설정 */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
     body {
-      background-color: hotpink; /* 눈부신 핑크 배경 */
-      font-family: "Comic Sans MS", "Courier New", sans-serif;
-      color: yellow;
-      margin: 0;
-      padding: 0;
-      animation: bg-flicker 0.5s infinite alternate;
+      font-family: 'Montserrat', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      transition: all 0.6s ease;
+      overflow-x: hidden;
+      scroll-behavior: smooth; /* 부드러운 스크롤 */
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    ul {
+      list-style: none;
     }
 
+    /* 고정 헤더 */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      z-index: 999;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* 좌: 로고, 우: 아이콘들 */
+      padding: 15px 20px;
+    }
+    .nav-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #00cdac;
+    }
+
+    /* 상단 우측 영역: 햄버거 + 달/해 아이콘 */
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    /* 햄버거 버튼 */
+    .hamburger {
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #333;
+    }
+    /* 다크 모드 토글 버튼 */
+    .dark-toggle {
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #333;
+    }
+
+    /* nav (데스크톱/태블릿 기본) */
+    nav {
+      display: flex;
+      gap: 30px;
+      transition: all 0.3s ease;
+    }
+    nav a {
+      font-weight: 500;
+      color: #333;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #00cdac;
+    }
+
+    /* 맨 위로 가는 버튼 */
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 30px; right: 30px;
+      width: 50px; height: 50px;
+      border: none;
+      border-radius: 50%;
+      background: linear-gradient(120deg, #02aab0, #00cdac);
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 900;
+    }
+    .scroll-top-btn.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .scroll-top-btn:hover {
+      filter: brightness(1.1);
+    }
+
+    /***********************************************
+     *                 히어로 섹션
+     ***********************************************/
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(-45deg, #02aab0, #00cdac, #4facfe, #00f2fe);
+      background-size: 400% 400%;
+      animation: hero-bg 15s ease infinite;
+    }
+    @keyframes hero-bg {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    .hero .typewriter {
+      font-size: 1.3rem;
+      color: #fff;
+      font-weight: 400;
+      white-space: nowrap;
+      border-right: 3px solid rgba(255,255,255,0.75);
+      width: 22ch;
+      margin: 0 auto;
+      overflow: hidden;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      animation: blink-cursor 0.8s step-end infinite alternate;
+      height: 1.5rem;
+    }
+    @keyframes blink-cursor {
+      0%,49% { border-color: rgba(255,255,255,0.75); }
+      50%,99% { border-color: transparent; }
+      100% { border-color: rgba(255,255,255,0.75); }
+    }
+    .hero p.sub {
+      margin-top: 10px;
+      color: #fff;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    .scroll-down {
+      position: absolute;
+      bottom: 30px;
+      font-size: 1.5rem;
+      color: #fff;
+      animation: bounce 1.5s infinite;
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+
+    /***********************************************
+     *             메인 섹션 컨테이너
+     ***********************************************/
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+    section {
+      margin-bottom: 100px;
+      opacity: 0;          /* 스크롤 페이드인 */
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+    section.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    section h2 {
+      font-size: 2rem;
+      color: #00cdac;
+      margin-bottom: 30px;
+      border-left: 5px solid #00cdac;
+      padding-left: 15px;
+      font-weight: 700;
+    }
+
+    /***********************************************
+     *               About 섹션
+     ***********************************************/
+    .about-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      align-items: center;
+      justify-content: space-around;
+    }
+    .about-left, .about-right {
+      flex: 1;
+      min-width: 300px;
+    }
+    .about-right {
+      background: rgba(255,255,255,0.4);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .about-right h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #02aab0;
+    }
+
+    /***********************************************
+     *              Projects 섹션
+     ***********************************************/
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    .project-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      padding: 20px;
+      transition: transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+    }
+    .project-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 5px;
+      background: linear-gradient(120deg, #02aab0, #00cdac);
+    }
+    .project-card h3 {
+      margin-bottom: 10px;
+      color: #00cdac;
+      font-size: 1.2rem;
+    }
+
+    /***********************************************
+     *           Stats(통계) 섹션 (카운팅)
+     ***********************************************/
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      text-align: center;
+    }
+    .stat-box {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      padding: 30px;
+      width: 220px;
+      transition: transform 0.3s;
+    }
+    .stat-box:hover {
+      transform: translateY(-5px);
+    }
+    .stat-number {
+      font-size: 2rem;
+      color: #00cdac;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    .stat-label {
+      font-size: 1rem;
+      color: #444;
+    }
+
+    /***********************************************
+     *       Team 섹션 (카드 플립 hover)
+     ***********************************************/
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      justify-items: center;
+    }
+    .team-card {
+      width: 200px;
+      height: 260px;
+      perspective: 1000px;
+    }
+    .team-card-inner {
+      position: relative;
+      width: 100%; height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+    .team-card:hover .team-card-inner {
+      transform: rotateY(180deg);
+    }
+    .team-card-front, .team-card-back {
+      position: absolute;
+      width: 100%; height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      color: #fff;
+    }
+    .team-card-front {
+      background: linear-gradient(120deg, #02aab0, #00cdac);
+    }
+    .team-card-front h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+    .team-card-back {
+      background: #333;
+      transform: rotateY(180deg);
+      text-align: center;
+    }
+    .team-card-back h4 {
+      margin-bottom: 5px;
+      font-size: 1.1rem;
+    }
+    .team-card-back p {
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    /***********************************************
+     *         Join Us 섹션
+     ***********************************************/
+    .joinus-wrap {
+      background: #eefefa;
+      padding: 40px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    .joinus-wrap p {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    .joinus-btn {
+      background: linear-gradient(120deg, #02aab0, #00cdac);
+      border: none;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .joinus-btn:hover {
+      filter: brightness(1.1);
+    }
+
+    /***********************************************
+     *          Services 섹션
+     ***********************************************/
+    .services-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    .services-table th, .services-table td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    .services-table th {
+      background-color: #f0f0f0;
+      font-weight: 700;
+      color: #333;
+    }
+    .services-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /***********************************************
+     *        Testimonials (슬라이드)
+     ***********************************************/
+    .testimonials-container {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .testimonials-slide {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .testimonial {
+      min-width: 100%;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      padding: 30px;
+      margin: 0 10px;
+      text-align: center;
+    }
+    .testimonial h4 {
+      color: #00cdac;
+      margin-bottom: 10px;
+    }
+    .testimonial p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    .testimonial-nav {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .testimonial-nav button {
+      background: #00cdac;
+      border: none;
+      color: #fff;
+      padding: 8px 12px;
+      margin: 0 5px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .testimonial-nav button:hover {
+      filter: brightness(1.1);
+    }
+
+    /***********************************************
+     *                푸터
+     ***********************************************/
+    footer {
+      background: #02aab0;
+      color: #fff;
+      text-align: center;
+      padding: 30px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    footer p {
+      margin: 5px 0;
+    }
+
+    /* Secret Mode 링크 (푸터) 스타일(선택) */
+    .secret-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+    .secret-link:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    /***********************************************
+     *          다크모드 (body.dark-mode)
+     ***********************************************/
+    body.dark-mode {
+      background: #1a1a1a;
+      color: #eee;
+    }
+    body.dark-mode header {
+      background: rgba(32,32,32,0.8);
+    }
+    body.dark-mode .nav-logo {
+      color: #00cdac; /* 로고 색상은 그대로 */
+    }
+    body.dark-mode nav a {
+      color: #ccc;
+    }
+    body.dark-mode nav a:hover {
+      color: #00cdac;
+    }
+    body.dark-mode .hero {
+      filter: brightness(0.7);
+    }
+    body.dark-mode .about-right, 
+    body.dark-mode .project-card,
+    body.dark-mode .services-table,
+    body.dark-mode .testimonial {
+      background: rgba(40,40,40,0.9);
+      color: #eee;
+    }
+    body.dark-mode .services-table th {
+      background-color: rgba(60,60,60,0.9);
+      color: #eee;
+    }
+    body.dark-mode .team-card-back {
+      background: #555;
+    }
+    body.dark-mode footer {
+      background: #111;
+    }
+    /* 다크 모드에서 Join Us 가독성 개선 */
+    body.dark-mode .joinus-wrap {
+      background: #333;
+      color: #fff;
+    }
+
+    /***********************************************
+     * B급 쌈뽕 모드: body.crazy-mode
+     ***********************************************/
+    body.crazy-mode {
+      background-color: hotpink !important;
+      color: yellow !important;
+      animation: bg-flicker 0.5s infinite alternate;
+    }
     @keyframes bg-flicker {
       0% { background-color: hotpink; }
       50% { background-color: cyan; }
       100% { background-color: lime; }
     }
-
-    h1, h2 {
-      text-shadow: 2px 2px 5px black, -2px -2px 5px red;
+    body.crazy-mode header {
+      background: repeating-linear-gradient(45deg, #ff0, #f00 10px, #0ff 20px);
+      animation: spin-bg-header 3s linear infinite;
+    }
+    @keyframes spin-bg-header {
+      0%   { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+    body.crazy-mode .nav-logo {
+      text-shadow: 2px 2px 4px black, -2px -2px 4px red;
       animation: text-shake 0.5s infinite alternate;
     }
-
     @keyframes text-shake {
-      0% { transform: translateX(0); }
-      50% { transform: translateX(10px); }
+      0%   { transform: translateX(0); }
+      50%  { transform: translateX(10px); }
       100% { transform: translateX(-10px); }
     }
-
-    .marquee-container {
-      margin: 20px 0;
-      border: 5px dashed black;
-      background: repeating-linear-gradient(45deg, yellow, red 10px, cyan 20px);
-      animation: spin-bg 4s linear infinite;
+    body.crazy-mode nav a {
+      animation: color-flash 1s infinite alternate;
     }
-
-    @keyframes spin-bg {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    marquee {
-      font-size: 1.5rem;
-      color: black;
-      font-weight: bold;
-    }
-
-    blink {
-      font-size: 1.2rem;
-      color: blue;
-      animation: blink-text 1s infinite alternate;
-    }
-
-    @keyframes blink-text {
-      0% { opacity: 1; }
-      100% { opacity: 0; }
-    }
-
-    .project-list {
-      margin: 20px auto;
-      text-align: left;
-      display: inline-block;
-      border: 10px groove red;
-      background: linear-gradient(to bottom, yellow, pink, lime);
-      padding: 20px;
-      color: black;
-      font-weight: bold;
-      animation: rotate-card 3s linear infinite;
-    }
-
-    @keyframes rotate-card {
-      0% { transform: rotate(0deg); }
-      50% { transform: rotate(5deg); }
-      100% { transform: rotate(-5deg); }
-    }
-
-    .footer {
-      background: conic-gradient(from 0deg, red, yellow, lime, cyan, magenta, red);
-      color: black;
-      text-align: center;
-      padding: 20px;
-      border-top: 10px solid black;
-      font-size: 1.5rem;
-      animation: footer-spin 6s linear infinite;
-    }
-
-    @keyframes footer-spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    a {
-      color: white;
-      text-decoration: none;
-      animation: color-flash 0.5s infinite alternate;
-    }
-
     @keyframes color-flash {
-      0% { color: yellow; }
-      50% { color: magenta; }
+      0%   { color: yellow; }
+      50%  { color: magenta; }
       100% { color: cyan; }
     }
-
-    a:hover {
-      font-size: 2rem;
+    body.crazy-mode .hero {
+      animation: gradient-crazy 3s linear infinite;
     }
-
-    .scrolling-table {
-      overflow: hidden;
-      padding: 20px;
-      animation: flash-bg 2s infinite;
+    @keyframes gradient-crazy {
+      0%   { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
     }
-
-    .scrolling-table table {
-      width: 90%;
-      margin: 0 auto;
-      border-collapse: collapse;
+    body.crazy-mode .project-card {
+      animation: rotate-card 2.5s linear infinite;
+    }
+    @keyframes rotate-card {
+      0%   { transform: rotate(0deg); }
+      50%  { transform: rotate(3deg); }
+      100% { transform: rotate(-3deg); }
+    }
+    body.crazy-mode .services-table {
       animation: shake-table 1.5s infinite alternate;
     }
-
-    @keyframes flash-bg {
-      0% { background-color: lime; }
-      50% { background-color: yellow; }
-      100% { background-color: hotpink; }
-    }
-
     @keyframes shake-table {
-      0% { transform: rotate(0deg); }
-      25% { transform: rotate(1deg); }
-      50% { transform: rotate(-1deg); }
-      75% { transform: rotate(1deg); }
+      0%   { transform: rotate(0deg); }
+      25%  { transform: rotate(1deg); }
+      50%  { transform: rotate(-1deg); }
+      75%  { transform: rotate(1deg); }
       100% { transform: rotate(0deg); }
     }
-
-    .scrolling-table th, .scrolling-table td {
-      border: 3px solid black;
-      padding: 10px;
-      text-align: center;
+    body.crazy-mode footer {
+      background: conic-gradient(from 0deg, red, yellow, lime, cyan, magenta, red);
+      animation: footer-spin 6s linear infinite;
+      border-top: 10px solid black;
+    }
+    @keyframes footer-spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    body.crazy-mode footer p {
+      color: #000 !important;
+      text-shadow: 1px 1px 2px #fff;
     }
 
-    .scrolling-table th {
-      background: linear-gradient(to right, red, yellow);
-      font-size: 1.5rem;
-    }
-
-    .scrolling-table td {
-      background: pink;
-      color: blue;
-      font-size: 1.2rem;
-      animation: row-glow 1.5s infinite alternate;
-    }
-
-    @keyframes row-glow {
-      0% { background-color: pink; color: blue; }
-      50% { background-color: yellow; color: red; }
-      100% { background-color: cyan; color: green; }
+    /***********************************************
+     *           반응형 미디어 쿼리
+     ***********************************************/
+    @media (max-width: 768px) {
+      /* PC/태블릿 → 모바일: nav를 오른쪽 슬라이드 메뉴로 */
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 200px;
+        height: 100vh; 
+        background: #fff;
+        box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+        flex-direction: column;
+        gap: 15px;
+        padding-top: 60px;   /* 헤더 높이 비우기 */
+        transition: right 0.3s ease;
+      }
+      nav.open {
+        right: 0;
+      }
+      /* nav 내의 링크들 (모바일에서는 세로 배치) */
+      nav a {
+        padding: 10px 20px;
+      }
+      /* Hero 섹션 글자 크기 줄임 */
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero .typewriter {
+        font-size: 1rem;
+        width: 18ch;
+      }
+      /* ABOUT 세션 컬럼 세로 배치 */
+      .about-container {
+        flex-direction: column;
+        gap: 20px;
+      }
+      /* TEAM 카드 높이/넓이 축소 */
+      .team-card {
+        width: 180px;
+        height: 240px;
+      }
+      /* JOIN US 폰 화면에서는 패딩 축소 */
+      .joinus-wrap {
+        padding: 20px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- 맨 위로 가는 버튼 -->
+  <button class="scroll-top-btn" id="scrollTopBtn" 
+    onclick="window.scrollTo({top:0, behavior:'smooth'});">
+    ↑
+  </button>
+
   <!-- 헤더 -->
-  <div style="text-align: center; padding: 30px; background: rainbow;">
-    <h1>🌈 WELCOME TO LITTLE BROTHER 🌈</h1>
-    <h2>"WE ARE THE FUTURE OF TECHNOLOGY!"</h2>
-    <blink><strong>🔥🔥 You just entered the BEST website on Earth! 🔥🔥</strong></blink>
-  </div>
-
-  <!-- 움직이는 텍스트 -->
-  <div class="marquee-container">
-    <marquee scrollamount="20" behavior="scroll" direction="left">
-      🥳 Little Brother is AMAZING! | HIRE US NOW! | WE BUILD THE FUTURE! 🎉
-    </marquee>
-  </div>
-
-  <!-- 회사 소개 -->
-  <div class="content">
-    <h2>ABOUT US</h2>
-    <p>🌟 Little Brother는 TheAlpha의 자회사로, 기술 혁신의 선두주자입니다. 🌟</p>
-    <p>🌟 세상에 긍정적인 영향을 주는 프로그램을 개발하고자 하는 일념으로 창립되었습니다! 🌟</p>
-    <blink>🌍 앱 개발, 웹 개발, 빅데이터, 서버 관리 등 기술의 모든 것을 제공합니다! 🌍</blink>
-  </div>
-
-  <!-- 프로젝트 -->
-  <div class="content">
-    <h2>PROJECTS</h2>
-    <div class="project-list">
-      <ul>
-        <li>🔥 <strong>헬스장 관리 프로그램</strong>: 회원을 더 많이, 더 빨리! (외주작업)</li>
-        <li>📸 <strong>카메라 앱</strong>: 화질 끝판왕!</li>
-        <li>📚 <strong>공부 앱</strong>: 학습 효율을 100배로! (이미 하루에 2천명 넘게 쓰고있다고!)</li>
-        <li>🛒 <strong>전자상거래 플랫폼</strong>: 가장 빠르고 간편한 쇼핑!</li>
-        <li>🔥 <strong>60만명이 이용한 공부 블로그</strong>: 나는야 파워블로거</li>
-      </ul>
+  <header>
+    <div class="nav-container">
+      <div class="nav-logo">LITTLE BROTHER</div>
+      <!-- 햄버거 + 다크모드 아이콘 -->
+      <div class="nav-icons">
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <button class="dark-toggle" onclick="toggleDarkMode()">
+          <span id="dark-icon">🌙</span>
+        </button>
+      </div>
+      <!-- 슬라이드 메뉴 -->
+      <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#stats">Stats</a>
+        <a href="#team">Team</a>
+        <a href="#joinus">Join Us</a>
+        <a href="#services">Services</a>
+        <a href="#testimonials">Testimonials</a>
+      </nav>
     </div>
-  </div>
+  </header>
 
-  <!-- 채용 정보 -->
-  <div class="content">
-    <h2>JOIN OUR TEAM!</h2>
-    <p>
-      저희는 함께 일할 <span style="color: red; font-weight: bold;">개발자</span>, <span style="color: blue; font-weight: bold;">디자이너</span>, 
-      <span style="color: green; font-weight: bold;">열정맨, 개발천재, 뛰어난 두뇌</span>를 찾고 있습니다!
-    </p>
-    <p>💌 <strong>문의:</strong> <a href="mailto:recthealpha@gmail.com">recthealpha@gmail.com</a></p>
-    <p>📅 <strong>지원 마감:</strong> 2112년 9월 3일 (도라에몽 나오는 날까지!)</p>
-  </div>
+  <!-- 히어로 섹션 -->
+  <section class="hero">
+    <h1>We Build The Future</h1>
+    <div class="typewriter" id="typewriter"></div>
+    <p class="sub">Innovate. Create. Inspire. and We Always Create The Alpha</p>
+    <div class="scroll-down">▼</div>
+  </section>
 
-  <!-- 스크롤 테이블 -->
-  <div class="scrolling-table">
-    <table>
-      <thead>
-        <tr>
-          <th>서비스</th>
-          <th>설명</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>앱 개발</td>
-          <td>사용자 맞춤형 모바일 애플리케이션 제작</td>
-        </tr>
-        <tr>
-          <td>웹 개발</td>
-          <td>최신 기술로 제작한 반응형 웹사이트</td>
-        </tr>
-        <tr>
-          <td>AI</td>
-          <td>머신러닝과 데이터 분석 솔루션</td>
-        </tr>
-        <tr>
-         <td>당신이 원하는 그 어떤 프로그램 </td>
-         <td>무조건 가능 ~~</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- 메인 컨텐츠 -->
+  <main>
+    <!-- ABOUT 섹션 -->
+    <section id="about">
+      <h2>About Us</h2>
+      <div class="about-container">
+        <div class="about-left">
+          <h3>A Subsidiary of TheAlpha</h3>
+          <p>
+            <strong>Little Brother</strong>는 2018년 창립된 <strong>TheAlpha</strong>의 자회사로,  
+            창의적인 솔루션을 통해 세상의 다양한 문제를 해결하는 스타트업입니다.
+          </p>
+          <p>
+            혁신적인 <em>앱 개발, 웹 개발, 서버관리, AI/빅데이터</em> 등  
+            다양한 분야에서 <strong>최고의 성과</strong>를 목표로 연구하고 개발합니다.
+          </p>
+        </div>
+        <div class="about-right">
+          <h3>Our Vision</h3>
+          <p>
+            우리는 누구도 시도하지 않은 새로운 길을 개척하며,  
+            세상에 긍정적인 영향을 주는 프로그램을 만들자는 일념으로 
+            여러분들께 더 나은 미래를 제공하고자 합니다.
+          </p>
+          <p>
+            기술력을 바탕으로 <strong>“사람 중심의 혁신”</strong>을 추구하며,  
+            고객과 함께 성장하는 미래를 만들어갑니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS 섹션 -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <h3>헬스장 관리 프로그램</h3>
+          <p>
+            회원 관리를 자동화하여 예약·결제 시스템을 혁신.  
+            체계적인 분석과 알림 기능으로 운영 효율을 극대화했습니다.
+            또한 PT 횟수 확인 및 식단 관리 기능을 추가해 사용자들의 만족도를 높였습니다.
+          </p>
+        </div>
+        <div class="project-card">
+          <h3>카메라 앱</h3>
+          <p>
+            고화질 촬영과 다양한 편집 기능을 제공,  
+            필터를 적용하거나 레이어를 추가하여 
+            손쉽게 전문가 수준의 사진을 연출할 수 있습니다.
+          </p>
+        </div>
+        <div class="project-card">
+          <h3>공부 앱</h3>
+          <p>
+            학습 효율을 높이는 스마트 타이머와 급식알리미,
+            무료 강의와 학습 자료 제공으로 사용자들의 학습 동기를 높였습니다.
+            또한 커뮤니티 기능을 통해 사용자들 간의 정보 공유를 활성화했습니다.
+            그리고 사용자의 학습 습관에 따라 학습 진도 기반 추천 시스템으로 이미 수천 명이 이용 중입니다.
+          </p>
+        </div>
+        <div class="project-card">
+          <h3>전자상거래 플랫폼</h3>
+          <p>
+            빠르고 간편한 쇼핑 프로세스로 구매 전환율을 높였으며,  
+            적은 트래픽으로 많은 매출을 올릴 수 있도록 최적화된 UI/UX를 제공합니다.
+            또한 사용자의 취향에 맞춘 맞춤형 추천 시스템과 사용자의 편의성을 극대화한 UX가 특징입니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS 섹션 (애니메이션 카운터) -->
+    <section id="stats">
+      <h2>Key Stats</h2>
+      <div class="stats">
+        <div class="stat-box">
+          <div class="stat-number" data-target="8">0</div>
+          <div class="stat-label">Projects</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" data-target="2000">0</div>
+          <div class="stat-label">Daily Users</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" data-target="97">0</div>
+          <div class="stat-label">Client Satisfaction (%)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" data-target="2">0</div>
+          <div class="stat-label">Ongoing R&D Projects</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM 섹션 (카드 뒤집힘) -->
+    <section id="team">
+      <h2>Meet the Team</h2>
+      <div class="team-grid">
+        <!-- 팀원1 -->
+        <div class="team-card">
+          <div class="team-card-inner">
+            <div class="team-card-front">
+              <h3>송민근</h3>
+              <p>CEO, FOUNDER</p>
+            </div>
+            <div class="team-card-back">
+              <h4>Full-stack &amp; AI</h4>
+              <p>프론트/백 가리지 않는 전천후 개발자 + AI 모델 개발 전문가</p>
+            </div>
+          </div>
+        </div>
+        <!-- 팀원2 -->
+        <div class="team-card">
+          <div class="team-card-inner">
+            <div class="team-card-front">
+              <h3>최고의 디자이너 모집을 기다리고 있습니다.</h3>
+              <p>UI/UX Designer</p>
+            </div>
+            <div class="team-card-back">
+              <h4>User Experience</h4>
+              <p>감각적인 디자인과 사용자 친화적 인터페이스 설계 마스터</p>
+            </div>
+          </div>
+        </div>
+        <!-- 팀원3 -->
+        <div class="team-card">
+          <div class="team-card-inner">
+            <div class="team-card-front">
+              <h3>최고의 개발자 모집을 기다리고 있습니다.</h3>
+              <p>Full-stack</p>
+            </div>
+            <div class="team-card-back">
+              <h4>All-rounder</h4>
+              <p>프론트/백 가리지 않는 전천후 개발자</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOIN US 섹션 -->
+    <section id="joinus">
+      <h2>Join Our Team!</h2>
+      <div class="joinus-wrap">
+        <p>
+          미래를 함께 만들어갈 <span style="color:#00cdac; font-weight:bold;">개발자, 디자이너, 기획자</span>  
+          그리고 <span style="color:#02aab0; font-weight:bold;">혁신적 아이디어</span>를 가진 인재를 찾고 있습니다!
+        </p>
+        <p>
+          <strong>문의:</strong> <a href="mailto:recthealpha@gmail.com">recthealpha@gmail.com</a><br/>
+          <strong>지원 마감:</strong> 상시 모집 중
+        </p>
+        <button class="joinus-btn" onclick="window.location.href='https://forms.gle/63GMxPfT2um6Vuwx8';">지금 바로 지원하기</button>
+      </div>
+    </section>
+
+    <!-- SERVICES 섹션 -->
+    <section id="services">
+      <h2>Services</h2>
+      <table class="services-table">
+        <thead>
+          <tr>
+            <th>서비스</th>
+            <th>설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>앱 개발</td>
+            <td>사용자 맞춤형 모바일 애플리케이션 제작</td>
+          </tr>
+          <tr>
+            <td>웹 개발</td>
+            <td>최신 기술로 구현한 반응형 웹사이트</td>
+          </tr>
+          <tr>
+            <td>AI / 빅데이터</td>
+            <td>머신러닝과 대규모 데이터 분석 솔루션</td>
+          </tr>
+          <tr>
+            <td>기타 프로그램</td>
+            <td>무엇이든 가능합니다. 당신의 아이디어를 현실로!</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- TESTIMONIALS 섹션 (슬라이더) -->
+    <section id="testimonials">
+      <h2>Testimonials</h2>
+      <div class="testimonials-container">
+        <div class="testimonials-slide" id="testimonialSlide">
+          <div class="testimonial">
+            <h4>**휘트니스 대표</h4>
+            <p>"리틀브라더의 헬스장 관리 솔루션 덕분에 예약 관리가 훨씬 수월해졌습니다."</p>
+          </div>
+          <div class="testimonial">
+            <h4>구글 플레이 리뷰</h4>
+            <p>"공부 앱 덕분에 좋은 대학교에 진학한거 같아서 항상 감사하게 생각하고 있습니다."</p>
+          </div>
+          <div class="testimonial">
+            <h4>**의류 쇼핑몰</h4>
+            <p>"전자상거래 플랫폼 개발 속도가 정말 빨랐고, UX가 깔끔해 매출이 크게 올랐습니다."</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-nav">
+        <button onclick="prevSlide()">Prev</button>
+        <button onclick="nextSlide()">Next</button>
+      </div>
+    </section>
+  </main>
 
   <!-- 푸터 -->
-  <div class="footer">
-    <marquee behavior="alternate" scrollamount="10">🌟 POWERED BY SONG MINGEUN 🌟</marquee>
+  <footer>
     <p>© 2025 LITTLE BROTHER | A SUBSIDIARY OF THEALPHA</p>
-  </div>
+    <p>We Bring the Future Closer to You</p>
+    <!-- Secret Mode 링크를 푸터에 숨김 -->
+    <p class="secret-link">
+      <a href="#" onclick="toggleCrazyMode()">Secret Mode</a>
+    </p>
+  </footer>
+
+  <!-- =======================
+       스크립트
+  ======================== -->
+  <script>
+    /************************************
+     * 1) Secret Mode (쌈뽕 모드) 토글
+     ************************************/
+    function toggleCrazyMode() {
+      document.body.classList.toggle('crazy-mode');
+    }
+
+    /************************************
+     * 2) Dark Mode 토글
+     *    (아이콘 달→해 로 변경)
+     ************************************/
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      // 아이콘 업데이트
+      const isDark = document.body.classList.contains('dark-mode');
+      const iconEl = document.getElementById('dark-icon');
+      iconEl.textContent = isDark ? '☀️' : '🌙';
+    }
+
+    /************************************
+     * 3) 스크롤 맨 위로 가는 버튼 표시
+     ************************************/
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      if(window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('show');
+      } else {
+        scrollTopBtn.classList.remove('show');
+      }
+    });
+
+    /************************************
+     * 4) 스크롤 페이드인 (IntersectionObserver)
+     ************************************/
+    const sections = document.querySelectorAll('section');
+    const options = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('active');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, options);
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    /************************************
+     * 5) 단순 타이핑 효과
+     ************************************/
+    const textList = [
+      "Leading Innovation",
+      "Creating Possibilities",
+      "Shaping the Future"
+    ];
+    let twIndex = 0;
+    let charIndex = 0;
+    const typewriterEl = document.getElementById("typewriter");
+    function typing(){
+      if(twIndex >= textList.length){
+        twIndex = 0;
+      }
+      let currentText = textList[twIndex];
+      typewriterEl.textContent = currentText.slice(0, charIndex);
+      charIndex++;
+      if(charIndex > currentText.length){
+        // 한 문장 다 찍었으면 잠시 대기 후 다음 문장
+        setTimeout(() => {
+          charIndex = 0;
+          twIndex++;
+        }, 1000);
+      }
+    }
+    setInterval(typing, 150);
+
+    /************************************
+     * 6) Stats(통계) 카운팅 애니메이션
+     ************************************/
+    const statNumbers = document.querySelectorAll('.stat-number');
+    let statsStarted = false;
+    function startCounting() {
+      statNumbers.forEach(numEl => {
+        const target = +numEl.getAttribute('data-target');
+        const speed = 50; // 속도(간격) 조절
+        let count = 0;
+        const updateCount = setInterval(() => {
+          if(count < target) {
+            // 증가 폭 (대략적으로 target의 100분의 1 정도씩)
+            count += Math.ceil(target / 200);
+            if(count > target) count = target;
+            numEl.textContent = count;
+          } else {
+            clearInterval(updateCount);
+          }
+        }, speed);
+      });
+    }
+    // Stats 섹션을 관찰하여, 처음 진입 시 startCounting 실행
+    const statsSection = document.getElementById('stats');
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting && !statsStarted) {
+          startCounting();
+          statsStarted = true;
+          statsObserver.unobserve(statsSection);
+        }
+      });
+    }, { threshold: 0.5 });
+    statsObserver.observe(statsSection);
+
+    /************************************
+     * 7) Testimonials 슬라이더
+     ************************************/
+    const slideContainer = document.getElementById('testimonialSlide');
+    let currentSlide = 0;
+    const totalSlides = slideContainer.children.length;
+
+    function showSlide(index) {
+      if(index < 0) index = totalSlides - 1;
+      if(index >= totalSlides) index = 0;
+      currentSlide = index;
+      slideContainer.style.transform = `translateX(-${index * 100}%)`;
+    }
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    /************************************
+     * 8) 모바일 메뉴 토글 (열기/닫기)
+     ************************************/
+    const nav = document.querySelector('header nav');
+    function toggleMenu() {
+      nav.classList.toggle('open');
+    }
+
+    // 메뉴 링크 클릭 시 자동 닫기 (원하는 경우)
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('open');
+      });
+    });
+  </script>
 </body>
 </html>
