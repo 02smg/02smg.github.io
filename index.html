@@ -538,6 +538,29 @@
       background: #333;
       color: #fff;
     }
+    body.dark-mode  .stat-box {
+      background: #333;
+      border-radius: 10px;
+
+      padding: 30px;
+      width: 220px;
+      transition: transform 0.3s;
+    }
+    body.dark-mode .stat-box:hover {
+      transform: translateY(0px);
+    }
+
+    body.dark-mode .stat-number {
+      font-size: 2rem;
+      color: #ffffff;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    body.dark-mode .stat-label {
+      font-size: 1rem;
+      color: #ffffff;
+    }
 
     /***********************************************
      * B급 쌈뽕 모드: body.crazy-mode
@@ -714,20 +737,24 @@
         <div class="about-left">
           <h3>A Subsidiary of TheAlpha</h3>
           <p>
-            <strong>Little Brother</strong>는 2018년 창립된 <strong>TheAlpha</strong>의 자회사로,  
+            <strong>Little Brother</strong>는 2018년 창립된 <strong>TheAlpha</strong>의 자회사로, 
+            <p> 
             창의적인 솔루션을 통해 세상의 다양한 문제를 해결하는 스타트업입니다.
           </p>
+          </p>
           <p>
-            혁신적인 <em>앱 개발, 웹 개발, 서버관리, AI/빅데이터</em> 등  
+            혁신적인 <em>앱 개발, 웹 개발, 서버관리, AI/빅데이터</em> 등
+            <p>  
             다양한 분야에서 <strong>최고의 성과</strong>를 목표로 연구하고 개발합니다.
+            </p>
           </p>
         </div>
         <div class="about-right">
           <h3>Our Vision</h3>
           <p>
-            우리는 누구도 시도하지 않은 새로운 길을 개척하며,  
-            세상에 긍정적인 영향을 주는 프로그램을 만들자는 일념으로 
-            여러분들께 더 나은 미래를 제공하고자 합니다.
+            <p>우리는 누구도 시도하지 않은 새로운 길을 개척하며,</p>  
+            <p>세상에 긍정적인 영향을 주는 프로그램을 만들자는 일념으로</p> 
+            <p>여러분들께 더 나은 미래를 제공하고자 합니다.</p>
           </p>
           <p>
             기술력을 바탕으로 <strong>“사람 중심의 혁신”</strong>을 추구하며,  
@@ -1055,7 +1082,7 @@
       if(index < 0) index = totalSlides - 1;
       if(index >= totalSlides) index = 0;
       currentSlide = index;
-      slideContainer.style.transform = `translateX(-${index * 100}%)`;
+      slideContainer.style.transform = `translateX(-${index * 105}%)`;
     }
     function prevSlide() {
       showSlide(currentSlide - 1);
