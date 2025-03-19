@@ -15,6 +15,11 @@
     * {
       margin: 0; padding: 0; box-sizing: border-box;
     }
+
+    html {
+      font-size: 16px; 
+    }
+
     body {
       font-family: 'Montserrat', sans-serif;
       background: #f9f9f9;
@@ -22,7 +27,13 @@
       transition: all 0.6s ease;
       overflow-x: hidden;
       scroll-behavior: smooth; /* 부드러운 스크롤 */
+      line-height: 1.6;       /* 전체 줄 간격 확대 */
     }
+
+    p {
+      margin-bottom: 1em;     /* 문단 간격 */
+    }
+
     a {
       text-decoration: none;
       color: inherit;
@@ -77,11 +88,12 @@
       color: #333;
     }
 
-    /* nav (데스크톱/태블릿 기본) */
+    /* 데스크톱/태블릿 기본 nav */
     nav {
       display: flex;
       gap: 30px;
       transition: all 0.3s ease;
+      position: relative; /* X 버튼 배치를 위한 position 지정 */
     }
     nav a {
       font-weight: 500;
@@ -495,11 +507,27 @@
     }
 
     /***********************************************
+     *  [신규 추가] X 버튼 스타일 (모바일 메뉴 닫기)
+     ***********************************************/
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #333;
+      cursor: pointer;
+      display: none; /* 기본적으로 PC에서는 숨김 */
+      z-index: 1001;
+    }
+
+    /***********************************************
      *          다크모드 (body.dark-mode)
      ***********************************************/
     body.dark-mode {
       background: #1a1a1a;
-      color: #eee;
+      color: #f0f0f0; /* 본문 색상 */
     }
     body.dark-mode header {
       background: rgba(32,32,32,0.8);
@@ -507,11 +535,13 @@
     body.dark-mode .nav-logo {
       color: #00cdac; /* 로고 색상은 그대로 */
     }
-    body.dark-mode nav a {
-      color: #ccc;
+
+    /* 다크 모드일 때 기본 nav도 색상 어둡게 */
+    body.dark-mode nav {
+      background: #333;
     }
-    body.dark-mode nav a:hover {
-      color: #00cdac;
+    body.dark-mode nav a {
+      color: #fff;
     }
     body.dark-mode .hero {
       filter: brightness(0.7);
@@ -521,11 +551,11 @@
     body.dark-mode .services-table,
     body.dark-mode .testimonial {
       background: rgba(40,40,40,0.9);
-      color: #eee;
+      color: #f0f0f0;
     }
     body.dark-mode .services-table th {
       background-color: rgba(60,60,60,0.9);
-      color: #eee;
+      color: #f0f0f0;
     }
     body.dark-mode .team-card-back {
       background: #555;
@@ -533,15 +563,12 @@
     body.dark-mode footer {
       background: #111;
     }
-    /* 다크 모드에서 Join Us 가독성 개선 */
     body.dark-mode .joinus-wrap {
       background: #333;
       color: #fff;
     }
-    body.dark-mode  .stat-box {
+    body.dark-mode .stat-box {
       background: #333;
-      border-radius: 10px;
-
       padding: 30px;
       width: 220px;
       transition: transform 0.3s;
@@ -549,17 +576,18 @@
     body.dark-mode .stat-box:hover {
       transform: translateY(0px);
     }
-
     body.dark-mode .stat-number {
       font-size: 2rem;
       color: #ffffff;
       margin-bottom: 10px;
       font-weight: 700;
     }
-
     body.dark-mode .stat-label {
       font-size: 1rem;
       color: #ffffff;
+    }
+    body.dark-mode .close-btn {
+      color: #fff; /* X 버튼도 흰색 */
     }
 
     /***********************************************
@@ -664,6 +692,11 @@
       nav a {
         padding: 10px 20px;
       }
+      /* 메뉴 열렸을 때 X 버튼 보이기 */
+      nav.open .close-btn {
+        display: block;
+      }
+
       /* Hero 섹션 글자 크기 줄임 */
       .hero h1 {
         font-size: 2rem;
@@ -707,8 +740,12 @@
           <span id="dark-icon">🌙</span>
         </button>
       </div>
+
       <!-- 슬라이드 메뉴 -->
       <nav>
+        <!-- 새로 추가된 X 버튼 -->
+        <button class="close-btn" onclick="toggleMenu()">✖</button>
+        <!-- 메뉴 링크들 -->
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#stats">Stats</a>
@@ -738,23 +775,23 @@
           <h3>A Subsidiary of TheAlpha</h3>
           <p>
             <strong>Little Brother</strong>는 2018년 창립된 <strong>TheAlpha</strong>의 자회사로, 
-            <p> 
-            창의적인 솔루션을 통해 세상의 다양한 문제를 해결하는 스타트업입니다.
           </p>
+          <p>
+            창의적인 솔루션을 통해 세상의 다양한 문제를 해결하는 스타트업입니다.
           </p>
           <p>
             혁신적인 <em>앱 개발, 웹 개발, 서버관리, AI/빅데이터</em> 등
-            <p>  
+          </p>
+          <p>
             다양한 분야에서 <strong>최고의 성과</strong>를 목표로 연구하고 개발합니다.
-            </p>
           </p>
         </div>
         <div class="about-right">
           <h3>Our Vision</h3>
           <p>
-            <p>우리는 누구도 시도하지 않은 새로운 길을 개척하며,</p>  
-            <p>세상에 긍정적인 영향을 주는 프로그램을 만들자는 일념으로</p> 
-            <p>여러분들께 더 나은 미래를 제공하고자 합니다.</p>
+            우리는 누구도 시도하지 않은 새로운 길을 개척하며,<br/>
+            세상에 긍정적인 영향을 주는 프로그램을 만들자는 일념으로<br/>
+            여러분들께 더 나은 미래를 제공하고자 합니다.
           </p>
           <p>
             기술력을 바탕으로 <strong>“사람 중심의 혁신”</strong>을 추구하며,  
@@ -1099,7 +1136,7 @@
       nav.classList.toggle('open');
     }
 
-    // 메뉴 링크 클릭 시 자동 닫기 (원하는 경우)
+    // 메뉴 링크 클릭 시 자동 닫기
     nav.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         nav.classList.remove('open');
